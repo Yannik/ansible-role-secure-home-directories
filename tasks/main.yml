@@ -1,0 +1,3 @@
+ - import_tasks: secure-home-directories.yml
+   tags:
+     - secure-home-directories

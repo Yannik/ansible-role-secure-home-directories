@@ -1,0 +1,23 @@
+- name: Get existing home directories
+  find:
+    paths: /home
+    file_type: directory
+  changed_when: false
+  register: home_directories
+
+- name: Secure existing home-directories
+  file:
+    path: "{{ item.path }}"
+    mode: o-rwx
+  loop: "{{ home_directories.files }}"
+
+- name: Secure /home folder
+  file:
+    path: /home
+    mode: o-r
+
+- name: Set default home directory permissions
+  file:
+    path: /etc/skel
+    recurse: yes
+    mode: o-rwx
